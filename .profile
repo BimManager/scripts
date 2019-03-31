@@ -1,6 +1,6 @@
 PS1="\w % " 
 
-PATH="/home/kkozlov/scripts:$PATH"
+PATH="$HOME/scripts:$PATH"
 
 alias gs="git status"
 alias ga="git add"
