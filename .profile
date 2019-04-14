@@ -10,4 +10,4 @@ alias gcl="git clone"
 alias gp="git push"
 alias gpl="git pull"
    
-alias ls="ls -l"
+alias ls="ls -lF"
