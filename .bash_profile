@@ -11,3 +11,4 @@ alias gp="git push"
 alias gpl="git pull"
    
 alias ls="ls -lFi"
+alias cls=clear
