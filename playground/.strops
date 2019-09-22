@@ -1,0 +1,18 @@
+#!/bin/sh
+echo "Enter type in summet."
+read STR1
+echo "Once again if you do not mind."
+read STR2
+
+if [ -z $STR1 ]; then echo "The first string is zero in length."; fi
+if [ -z $STR2 ]; then echo "The second string seems to be of zero length."; fi
+
+LEN1=${#STR1}
+LEN2=${#STR2}
+
+if [ $STR1 = $STR2 ]; then echo "The strings are the same"; else echo "The strings do not match.";fi
+
+echo $LEN1
+echo $LEN2
+
+#if [ $# -ne 2 ]; then echo "usage: .strops s1 s2"; fi

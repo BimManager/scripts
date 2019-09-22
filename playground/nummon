@@ -1,0 +1,50 @@
+#!/bin/bash
+
+printf "Enter a number in the rage of 1 "\
+"to 10 to be converted into the corresponding month:\n"
+read NUM
+
+#if [ $NUM -lt 1 ] || [ $NUM -gt 12 ]; then echo "usage: There only 12 months."; exit 1; fi
+case $NUM in
+     1)
+     echo "January"
+     ;;
+     2)
+     echo "February"
+     ;;
+     3)
+     echo "March"
+     ;;
+     4)
+     echo "April"
+     ;;
+     5)
+     echo "May"
+     ;;
+     6)
+     echo "June"
+     ;;
+     7)
+     echo "July"
+     ;;
+     8)
+     echo "August"
+     ;;
+     9)
+     echo "September"
+     ;;
+     10)
+     echo "October"
+     ;;
+     11)
+     echo "November"
+     ;;
+     12)
+     echo "December"
+     ;;
+     *)
+     echo "imbicile"
+     ;;
+esac
+
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+   echo "usage: rnd [STRING]"
+   exit 1
+fi
+
+WORD=$1
+echo $WORD$RANDOM
