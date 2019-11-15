@@ -1,5 +1,6 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-w") 'backward-kill-word)
+;(global-set-key (kbd "M-w") 'kill-region)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (load "google-c-style")
@@ -16,4 +17,3 @@
        \n \n \n)))
 
 (add-hook 'find-file-hook 'auto-insert)
-
