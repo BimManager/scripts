@@ -1,12 +1,10 @@
 #!/bin/bash
 
 ProgressBar() {
-    if [[ $# -gt 0 ]]; then
-	printf "Progress : [%q] $1%%\n" 24
-	eval printf -v line '%.0s-\n' {1..40}
-    fi
+    eval printf '%0.s-' {1..5}
 }
 
-ProgressBar $1
+ProgressBar
 
 # Progress : [####---------------------] 14%
+printf '%0.s#' {1..10} && printf '%0.s-' {1..10}
