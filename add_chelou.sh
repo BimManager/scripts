@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 declare -A MAP1
 MAP1["'"]=0
@@ -37,18 +37,25 @@ echo ${FT_NBR2}
 
 radix_dec() {
     nbr=$1
-    rad=$2
-    map=$3
+    shift
+    rad=$1
+    shift
+    printf "nbr=%s; rad=%d\n" $nbr $rad
+    local -n map=$1
     i=${#nbr}
+    printf "i=%d\n" $i
     res=0
     while [[ 0 -lt ${#nbr} ]]
     do
 	i=$((i-1))
 	d=${nbr::1}
+	printf "d=%c\n" $d
 	nbr=${nbr:1}
-	k=$map['$d']
-	res=$((res*$rad+$k))
-	printf "d=%s; i=%s; res=%i\n" $d $i $res
+	printf "nbr=%s\n" $nbr
+	k=${map["$d"]}
+	printf "k=%d\n" $k
+	res=$((res * rad + k))
+	printf "res=%d\n" $res
     done
     echo $res
 }
