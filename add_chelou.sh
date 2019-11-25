@@ -2,7 +2,7 @@
 
 declare -A MAP1
 MAP1["'"]=0
-MAP1['\\']=1
+MAP1["\\"]=1
 MAP1['"']=2
 MAP1['?']=3
 MAP1['!']=4
