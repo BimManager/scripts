@@ -32,32 +32,32 @@ MAP3['f']=1
 ARR=('g' 't' 'a' 'i' 'o' ' ' 'l' 'u' \
 	 'S' 'n' 'e' 'm' 'f')
 
-echo ${FT_NBR1}
-echo ${FT_NBR2}
+#echo ${FT_NBR1}
+#echo ${FT_NBR2}
 
 radix_dec() {
     nbr=$1
     shift
     rad=$1
     shift
-    printf "nbr=%s; rad=%d\n" $nbr $rad
+#    printf "nbr=%s; rad=%d\n" $nbr $rad
     local -n map=$1
     i=${#nbr}
-    printf "i=%d\n" $i
+#    printf "i=%d\n" $i
     res=0
     while [[ 0 -lt ${#nbr} ]]
     do
 	i=$((i-1))
 	d=${nbr::1}
-	printf "d=%c\n" $d
+#	printf "d=%c\n" $d
 	nbr=${nbr:1}
-	printf "nbr=%s\n" $nbr
+#	printf "nbr=%s\n" $nbr
 	k=${map["$d"]}
-	printf "k=%d\n" $k
+#	printf "k=%d\n" $k
 	res=$((res * rad + k))
-	printf "res=%d\n" $res
+#	printf "res=%d\n" $res
     done
-    echo $res
+#    echo $res
 }
 
 
@@ -86,23 +86,24 @@ while [[ 0 -lt $num ]]
 do
     rem=$((num % rad))
     i=$((i + 1))
-    printf "rem = %d; d = %c\n" $rem ${digits[rem]}
+#    printf "rem = %d; d = %c\n" $rem ${digits[rem]}
     stack[$i]=${digits[rem]}
     num=$((num / rad))
 done
 
-printf "\n"
+#printf "\n"
 while [[ 0 -le $i ]]
 do
     printf "%c" ${stack[i]}
     i=$((i-1))
 done
-printf "\ndone\n"
+printf "\n"
+#printf "\ndone\n"
 }
     
-printf "res1=%d; res2=%d; sum=%d\n" $res1 $res2 $sum
+#printf "res1=%d; res2=%d; sum=%d\n" $res1 $res2 $sum
 
-dec_to_radix 3333 16 "${digits_16[@]}"
+#dec_to_radix 3333 16 "${digits_16[@]}"
 
 dec_to_radix $sum 13 "${ARR[@]}"
 
