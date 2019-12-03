@@ -1,19 +1,49 @@
+;*******************************************************************************;
+;                                                                               ;
+;                                                          :::      ::::::::    ;
+;    dotemacs                                            :+:      :+:    :+:    ;
+;                                                      +:+ +:+         +:+      ;
+;    by: thor <thor@42.fr>                           +#+  +:+       +#+         ;
+;                                                  +#+#+#+#+#+   +#+            ;
+;    Created: 2013/06/18 14:01:14 by thor               #+#    #+#              ;
+;    Updated: 2019/12/03 10:55:49 by kkozlov          ###   ########.fr        ;
+;                                                                               ;
+;*******************************************************************************;
+
+; Load general features files
+(setq config_files "/usr/share/emacs/site-lisp/")
+(setq load-path (append (list nil config_files) load-path))
+
+(load "list.el")
+(load "string.el")
+(load "comments.el")
+(load "header.el")
+
+(autoload 'php-mode "php-mode" "Major mode for editing PHP code" t)
+(add-to-list 'auto-mode-alist '("\\.php[34]?\\'\\|\\.phtml\\'" . php-mode))
+
+; Set default emacs configuration
+(set-language-environment "UTF-8")
+(setq-default font-lock-global-modes nil)
+(setq-default line-number-mode nil)
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode t)
+(global-set-key (kbd "DEL") 'backward-delete-char)
+(setq-default c-backspace-function 'backward-delete-char)
+(setq-default c-basic-offset 4)
+(setq-default c-default-style "linux")
+(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
+	  		  				 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
+
+; Load user configuration
+(if (file-exists-p "~/.myemacs") (load-file "~/.myemacs"))
+
+
+
+;*******************************************************************************;
+
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-w") 'backward-kill-word)
-;(global-set-key (kbd "M-w") 'kill-region)
+(global-set-key (kbd "C-u") 'backward-kill-sentence)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-(load "google-c-style")
-(add-hook 'c-mode-common-hook 'google-set-c-style)
 
-(eval-after-load 'autoinsert
-  '(define-auto-insert
-     '("\\.\\(CC?\\|cc\\|cxx\\|cpp\\|c++\\)\\'" . "Google C++ Style")
-     '("Google C++ Style"
-       "// Copyright 2019 Samolet LLC" \n
-       "// Author: kkozlov" \n
-       "// "
-       (file-name-nondirectory (buffer-file-name))
-       \n \n \n)))
-
-(add-hook 'find-file-hook 'auto-insert)
