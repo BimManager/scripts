@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# 1. install homebrew
+#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+# 2. install and set up a Kerberos client
+#brew install krb5
+#sudo emacs /etc/krb5.conf
+#[libdefaults]
+#	default_realm = 42.US.ORG
+#	forwardable = true
+#	proxiable = true
+#	dns_lookup_kdc = no
+#	dns_lookup_realm = no
+#	allow_weak_crypto = true
+#
+#[realms]
+#	42.US.ORG = {
+#		  kdc = kdc.42.us.org
+#		  admin_server = kdc.42.us.org
+#		  default_domain = 42.us.org
+#		  default_lifetime = 7d
+#		  ticket_lifetime = 7d
+#	}
+#
+#[domain_realm]
+#	.42.us.org = 42.US.ORG
+#	42.us.org = 42.US.ORG
+
+#sudo emacs /etc/ssh/ssh_config
+#Host *.42.us.org
+#     SendEnv LANG LC_*
+#     StrictHostKeyChecking no
+#     GSSAPIAuthentication yes
+#     GSSAPIDelegateCredentials yes
+#     PasswordAuthentication yes
+
+# 3. install iterm2 and zsh
+# brew cask install iterm2
+# brew install zsh
+# chsh -s /bin/zsh
+
+# 4. modify .zshrc
