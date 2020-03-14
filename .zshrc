@@ -2,6 +2,8 @@ PROMPT='%~ %# '
 
 PATH=~/scripts:$PATH
 
+alias ls='ls -lF'
+
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
