@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# 1. install homebrew
+# 1. install homebrew and cask
 #/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+#brew install cask
 
 # 2. install and set up a Kerberos client
 #brew install krb5
@@ -35,9 +36,18 @@
 #     GSSAPIDelegateCredentials yes
 #     PasswordAuthentication yes
 
-# 3. install iterm2 and zsh
+# 3. install iterm2 and zsh (oh my zsh)
 # brew cask install iterm2
 # brew install zsh
 # chsh -s /bin/zsh
 
 # 4. modify .zshrc
+
+# 5. set up git
+#github ssh keys
+#~/.gitconfig [alias] st = status
+#~/.gitignore_global
+
+# 6. install python3
+#brew install python3
+#pip3 install virtualenv
