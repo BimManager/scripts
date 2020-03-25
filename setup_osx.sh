@@ -51,3 +51,29 @@
 # 6. install python3
 #brew install python3
 #pip3 install virtualenv
+#mkdir ~/virtualenvs && cd ~/virtualenvs
+#virtualenv jupyter
+#source ~/virtualenvs/jupyter/bin/activate
+#pip install --upgrade pip
+#pip install numpy pandas matplotlib
+#pip install jupyter
+#jupyter notebook
+#deactivate
+#pip freeze > requirements.txt
+#pip install -r requirements.txt
+
+# 7. install basictex
+#brew cask install basictex
+#pdflatex main.tex
+
+# 8. install nodejs
+#brew install node
+
+# 8. use heredoc
+#cat <<EOF > text.txt
+#The first line of the text.
+#The second line of the text.
+#...
+#EOF
+
+
