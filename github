@@ -5,15 +5,15 @@ if [[ '' == $GIT_TOKEN ]]; then
     exit 1
 fi    
 
-if [[ $# -ne 2 ]]; then
-    echo "usage: sh github.sh init|rm repo_name"
+if [[ $# -ne 1 ]]; then
+    echo "usage: github repos | init | rm [repo_name]"
     if [[ $1 == 'init' ]]; then
 	echo 'init a repo'
     fi
     exit 1
 fi
 
-if [[ 'init' == $1 ]]; then
+if [[ 2 -eq $# && 'init' == $1 ]]; then
     curl -X POST -H "Authorization: token $GIT_TOKEN" \
 	 -d "{ \
      	\"name\": \"$REPO_NAME\", \
@@ -22,9 +22,14 @@ if [[ 'init' == $1 ]]; then
 	\"license_template\": \"mit\" \
 	}" \
 	 https://api.github.com/user/repos
+fi
+
+if [[ 1 -eq $# && 'repos' == $1 ]]; then
+curl -i -H "Authorization: token $GIT_TOKEN" \
+      https://api.github.com/user/repos | sed -n '/full_name/p' | cut -d: -f2
 fi    
 
-if [[ 'rm' == $1 ]]; then
+if [[ 2 -eq $# && 'rm' == $1 ]]; then
     curl -X DELETE -i -H "Authorization: token $GIT_TOKEN" \
          https://api.github.com/repos/bimmanager/$REPO_NAME
 fi
