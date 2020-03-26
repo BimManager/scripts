@@ -5,7 +5,7 @@ PATH=~/scripts:$PATH
 alias ls='ls -lF'
 alias sed10='sed -ne":a" -e "\$p;N;11,\$D;ba"'
 
-export GIT_TOKEN=cb21db92710a6eb8b1232fb91c9145e8d7c6ab10
+export GIT_TOKEN=''
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
