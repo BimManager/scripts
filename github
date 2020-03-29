@@ -5,8 +5,8 @@ if [[ '' == $GIT_TOKEN ]]; then
     exit 1
 fi    
 
-if [[ $# -ne 1 ]]; then
-    echo "usage: github repos | init | rm [repo_name]"
+if [[ $# -lt 1 ]]; then
+    echo "usage: github repos | init | ren | rm [repo_name]"
     if [[ $1 == 'init' ]]; then
 	echo 'init a repo'
     fi
@@ -27,6 +27,12 @@ fi
 if [[ 1 -eq $# && 'repos' == $1 ]]; then
 curl -i -H "Authorization: token $GIT_TOKEN" \
       https://api.github.com/user/repos | sed -n '/full_name/p' | cut -d: -f2
+fi
+
+if [[ 3 -eq $# && 'ren' == $1 ]]; then
+    curl -X PATCH -H "Authorization: token $GIT_TOKEN" \
+	 https://api.github.com/repos/bimmanager/$2 \
+	 -d "{ \"name\": \"$3\" }"
 fi    
 
 if [[ 2 -eq $# && 'rm' == $1 ]]; then
