@@ -69,11 +69,46 @@
 # 8. install nodejs
 #brew install node
 
-# 8. use heredoc
+# 9. use heredoc
 #cat <<EOF > text.txt
 #The first line of the text.
 #The second line of the text.
 #...
 #EOF
+
+
+# some handy commands
+# ls -l details
+# total (# of 512-blocks)
+# type (d)(-) | access_modes | links | owner | group | size (in bytes) | modification_date | name
+# uname
+# host google.com
+# sort
+# !! - repeat the last command
+# !$ - the first argument of the last command
+# command chaining (; / && / &)
+# ; -> the next command runs if the previous command fails
+# && -> the next command is executed if and only if the previous command succeeds
+# & -> put a command in the background
+# nc 'netcat'
+
+
+# git commands (.git/config)
+# git branch <branch_name>
+# git checkout <branch_name>
+# git push -u <remote> <branch_name>
+# git branch --list
+# git branch -d <branch_name>
+# git push <remote> <branch_name>
+# git pull <remote>
+# git remote show <remote>
+# git log --oneline
+
+# git remote add github https://github.com/bimmanager/foo
+# git remote add forty-two https://github.com/bimmanager/baz
+# git remote set-url --add --push origin https://github.com/bimmanager/foo
+# git remote set-url --add --push origin https://github.com/bimmanager/baz
+# git remote show origin
+
 
 
