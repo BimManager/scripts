@@ -43,6 +43,8 @@
 ; emacs browser
 ;(setq browse-url-browser-function 'browse-url-default-browser)
 
+(menu-bar-mode -1)
+
 (set-language-environment "UTF-8")
 (setq-default tab-width 4)
 (setq c-default-style "linux"
@@ -50,4 +52,6 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 
-
+(put 'upcase-region 'disabled nil)
+(load "~/.emacs.d/google-c-style.el")
+(add-hook 'c-mode-common-hook 'google-set-c-style)
