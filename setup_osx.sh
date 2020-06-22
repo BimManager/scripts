@@ -91,7 +91,8 @@
 # && -> the next command is executed if and only if the previous command succeeds
 # & -> put a command in the background
 # nc 'netcat'
-
+# colrm [start [end]]
+# du -h ~/file; du -hs ~/dir
 
 # git commands (.git/config)
 # git branch <branch_name>
@@ -103,7 +104,17 @@
 # git pull <remote>
 # git remote show <remote>
 # git log --oneline
+# git remote add <alias> <url> 
+# git remote -v /* to view a list of remote urls */
+# git remote set-url <existing-alias> <url>
+# git remote set-url github https://github.com/bimmanager/bar
+# git reflog /* to get a list of hashes */
+# git reset --soft[--hard] HASH /* to undo a local commit */
+# git revert HASH /* to undo a remote commit */
+# git branch -d <branch-name> */ to delete a local branch */
+# git push <remote-name> --delete <branch-name> /* to delete a remote branch */
 
+# === how to push to two remote repos simultaneously ===
 # git remote add github https://github.com/bimmanager/foo
 # git remote add forty-two https://github.com/bimmanager/baz
 # git remote set-url --add --push origin https://github.com/bimmanager/foo
