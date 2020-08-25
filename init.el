@@ -1,52 +1,32 @@
-;*******************************************************************************;
-;                                                                               ;
-;                                                          :::      ::::::::    ;
-;    dotemacs                                            :+:      :+:    :+:    ;
-;                                                      +:+ +:+         +:+      ;
-;    by: thor <thor@42.fr>                           +#+  +:+       +#+         ;
-;                                                  +#+#+#+#+#+   +#+            ;
-;    Created: 2013/06/18 14:01:14 by thor               #+#    #+#              ;
-;    Updated: 2019/12/03 10:55:49 by kkozlov          ###   ########.fr        ;
-;                                                                               ;
-;*******************************************************************************;
+;; emacs browser
+;;(setq browse-url-browser-function 'browse-url-default-browser)
 
-; Load general features files
-;(setq config_files "/usr/share/emacs/site-lisp/")
-;(setq load-path (append (list nil config_files) load-path))
+;; delete-char
+;; delete-forward-char
+;; delete-backward-char
+;; delete-horizontal-space
+;; delete-blank-lines
+;; delete-indentation
+;; just-one-space
+;; kill commands
+;; kill-region
+;; kill-ring-save
+;; kill-word
+;; backward-kill-word
+;; kill-sentense
+;; backward-kill-sentence
+;; kill-sexp
+;; zap-to-char
 
-;(load "list.el")
-;(load "string.el")
-;(load "comments.el")
-;(load "header.el")
-
-;(autoload 'php-mode "php-mode" "Major mode for editing PHP code" t)
-;(add-to-list 'auto-mode-alist '("\\.php[34]?\\'\\|\\.phtml\\'" . php-mode))
-
-; Set default emacs configuration
-;(set-language-environment "UTF-8")
-;(setq-default font-lock-global-modes nil)
-;(setq-default line-number-mode nil)
-;(setq-default tab-width 4)
-;(setq-default indent-tabs-mode t)
-;(global-set-key (kbd "DEL") 'backward-delete-char)
-;(setq-default c-backspace-function 'backward-delete-char)
-;(setq-default c-basic-offset 4)
-;(setq-default c-default-style "linux")
-;(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
-;	  		  				 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
-
-; Load user configuration
-;(if (file-exists-p "~/.myemacs") (load-file "~/.myemacs"))
-
-;*******************************************************************************;
-
-; emacs browser
-;(setq browse-url-browser-function 'browse-url-default-browser)
+;; emacs -u /home/anotherusr/eamcs.d/init.el
+;; emacs -q => prevents loading the init file
+;; default.el
 
 (menu-bar-mode -1)
 
 (set-language-environment "UTF-8")
 (setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
 (setq c-default-style "linux"
 	  c-basic-offset 4)
 (global-set-key (kbd "C-h") 'delete-backward-char)
@@ -55,3 +35,5 @@
 (put 'upcase-region 'disabled nil)
 (load "~/.emacs.d/google-c-style.el")
 (add-hook 'c-mode-common-hook 'google-set-c-style)
+(put 'erase-buffer 'disabled nil)
+(put 'downcase-region 'disabled nil)

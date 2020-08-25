@@ -6,7 +6,8 @@ if [[ '' == $GIT_TOKEN ]]; then
 fi    
 
 if [[ $# -lt 1 ]]; then
-    echo "usage: github repos | init | ren | rm [repo_name]"
+    echo "usage: github repos | init | ren | rm [repo_name] | \
+gist_create description filename | gist_list"
     if [[ $1 == 'init' ]]; then
 	echo 'init a repo'
     fi
@@ -38,4 +39,17 @@ fi
 if [[ 2 -eq $# && 'rm' == $1 ]]; then
     curl -X DELETE -i -H "Authorization: token $GIT_TOKEN" \
          https://api.github.com/repos/bimmanager/$REPO_NAME
+fi
+
+if [[ 3 -eq $# && 'gist_create' == $1 ]]; then
+    curl -X POST -H "Authorization: token $GIT_TOKEN" \
+         https://api.github.com/gists \
+         -d "{ \"description\": \"$2\", \"public\": false, \
+         \"files\": { \"$3\": { \"content\": \"$3\" } } }"
+fi
+
+if [[ 1 -eq $# && "gist_list" == $1 ]]; then
+    curl -X GET -H "Authorization: token $GIT_TOKEN" \
+         https://api.github.com/gists \
+        | jq '.[]|.["description"],.["git_pull_url"]'
 fi

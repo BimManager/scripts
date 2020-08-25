@@ -76,6 +76,9 @@
 #...
 #EOF
 
+# 10. install jq
+#brew install jq
+
 
 # some handy commands
 # ls -l details

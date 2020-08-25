@@ -1,3 +1,9 @@
 #!/bin/bash
 
-find . -type f \( -name "*~" -or -name "#*#" \) -print -exec rm -f {} \;
+#find . -type f \( -name "*~" -or -name "#*#" \) -print -exec rm -f {} \;
+
+clean() {
+    find . \( -name "*~" -or -name "#*#" \) -type f -uid $1 -print -exec rm -f '{}' \;
+}
+
+clean $(id -u)
