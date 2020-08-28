@@ -45,7 +45,7 @@ if [[ 2 -eq $# && 'gist_conv' == $1 ]]; then
                 $API_END/gists \
                | jq '.[]|.["description"],.["id"]' | egrep -i -A1 "$2" | sed -n '2p'  | tr -d '"')
     git remote set-url origin --push "git@gist.github.com:$ID.git"
-fi    
+fi
 
 if [[ 3 -eq $# && 'ren' == $1 ]]; then
     curl -X PATCH -H "Authorization: token $GIT_TOKEN" \
