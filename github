@@ -1,4 +1,5 @@
-REPO_NAME=$2
+#REPO_NAME=$2
+API_END=https://api.github.com
 
 if [[ '' == $GIT_TOKEN ]]; then
     echo 'GIT_TOKEN is not defined'
@@ -7,7 +8,8 @@ fi
 
 if [[ $# -lt 1 ]]; then
     echo "usage: github repos | init | ren | rm [repo_name] | \
-gist_create description filename | gist_list"
+gist_create description filename | gist_list | gist_clone desc |\
+gist_conv desc"
     if [[ $1 == 'init' ]]; then
 	echo 'init a repo'
     fi
@@ -17,39 +19,54 @@ fi
 if [[ 2 -eq $# && 'init' == $1 ]]; then
     curl -X POST -H "Authorization: token $GIT_TOKEN" \
 	 -d "{ \
-     	\"name\": \"$REPO_NAME\", \
+     	\"name\": \"$2\", \
 	\"auto_init\": true, \
 	\"private\": false, \
 	\"license_template\": \"mit\" \
 	}" \
-	 https://api.github.com/user/repos
+	 $API_END/user/repos
 fi
 
 if [[ 1 -eq $# && 'repos' == $1 ]]; then
 curl -i -H "Authorization: token $GIT_TOKEN" \
-      https://api.github.com/user/repos | sed -n '/full_name/p' | cut -d: -f2
+      $API_END/user/repos | sed -n '/full_name/p' | cut -d: -f2
 fi
+
+if [[ 2 -eq $# && 'gist_clone' == $1 ]]; then
+    URL=$(curl -X GET -H "Authorization: token $GIT_TOKEN" \
+                $API_END/gists \
+              | jq '.[]|.["description"],.["git_pull_url"]' | egrep -i -A1 "$2" | sed -n '2p'  | tr -d '"')
+    echo $URL
+    git clone $URL $2
+fi    
+
+if [[ 2 -eq $# && 'gist_conv' == $1 ]]; then
+    ID=$(curl -X GET -H "Authorization: token $GIT_TOKEN" \
+                $API_END/gists \
+               | jq '.[]|.["description"],.["id"]' | egrep -i -A1 "$2" | sed -n '2p'  | tr -d '"')
+    git remote set-url origin --push "git@gist.github.com:$ID.git"
+fi    
 
 if [[ 3 -eq $# && 'ren' == $1 ]]; then
     curl -X PATCH -H "Authorization: token $GIT_TOKEN" \
-	 https://api.github.com/repos/bimmanager/$2 \
+	 $API_END/repos/bimmanager/$2 \
 	 -d "{ \"name\": \"$3\" }"
 fi    
 
 if [[ 2 -eq $# && 'rm' == $1 ]]; then
     curl -X DELETE -i -H "Authorization: token $GIT_TOKEN" \
-         https://api.github.com/repos/bimmanager/$REPO_NAME
+         $API_END/repos/bimmanager/$2
 fi
 
 if [[ 3 -eq $# && 'gist_create' == $1 ]]; then
     curl -X POST -H "Authorization: token $GIT_TOKEN" \
-         https://api.github.com/gists \
+         $API_END/gists \
          -d "{ \"description\": \"$2\", \"public\": false, \
          \"files\": { \"$3\": { \"content\": \"$3\" } } }"
 fi
 
 if [[ 1 -eq $# && "gist_list" == $1 ]]; then
     curl -X GET -H "Authorization: token $GIT_TOKEN" \
-         https://api.github.com/gists \
+         $API_END/gists \
         | jq '.[]|.["description"],.["git_pull_url"]'
 fi
