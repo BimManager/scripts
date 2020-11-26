@@ -9,7 +9,7 @@ fi
 if [[ $# -lt 1 ]]; then
     echo "usage: github repos | init | ren | rm [repo_name] | \
 gist_create description filename | gist_list | gist_clone desc |\
-gist_conv desc"
+gist_conv desc | git_set_urls"
     if [[ $1 == 'init' ]]; then
 	echo 'init a repo'
     fi
@@ -43,7 +43,8 @@ fi
 if [[ 2 -eq $# && 'gist_conv' == $1 ]]; then
     ID=$(curl -X GET -H "Authorization: token $GIT_TOKEN" \
                 $API_END/gists \
-               | jq '.[]|.["description"],.["id"]' | egrep -i -A1 "$2" | sed -n '2p'  | tr -d '"')
+             | jq '.[]|.["description"],.["id"]' | egrep -A1 "$2" | sed -n '2p'  | tr -d '"')
+    echo $ID
     git remote set-url origin --push "git@gist.github.com:$ID.git"
 fi
 
@@ -69,4 +70,11 @@ if [[ 1 -eq $# && "gist_list" == $1 ]]; then
     curl -X GET -H "Authorization: token $GIT_TOKEN" \
          $API_END/gists \
         | jq '.[]|.["description"],.["git_pull_url"]'
+fi
+
+if [[ 1 -eq $# && "git_set_urls" == $1 ]]; then
+    URL=$(git remote -v | egrep 'push' | cut -d$'\t' -f2 | cut -d' ' -f1)
+    PUSH=${URL/g/$GIT_TOKEN@g}
+    echo $PUSH
+    #git remote set-url origin $PUSH
 fi
