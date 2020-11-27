@@ -8,7 +8,7 @@ alias ll='ls -lF'
 alias sed10='sed -ne ":a" -e "\$p;N;11,\$D;ba"'
 alias sednl='sed -e ":a" -e "N" -e "$!ba" -e "s/\n/ /g"'
 
-export GIT_TOKEN=100a0664ca9e1e12162ee8d87036d70221468c63
+export GIT_TOKEN=""
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
