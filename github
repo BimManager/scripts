@@ -9,7 +9,7 @@ fi
 if [[ $# -lt 1 ]]; then
     echo "usage: github repos | init | ren | rm [repo_name] | \
 gist_create description filename | gist_list | gist_clone desc |\
-gist_conv desc | git_set_urls"
+gist_conv desc | git_set_urls | update_push_url"
     if [[ $1 == 'init' ]]; then
 	echo 'init a repo'
     fi
@@ -74,7 +74,16 @@ fi
 
 if [[ 1 -eq $# && "git_set_urls" == $1 ]]; then
     URL=$(git remote -v | egrep 'push' | cut -d$'\t' -f2 | cut -d' ' -f1)
+    echo $URL
     PUSH=${URL/g/$GIT_TOKEN@g}
     echo $PUSH
     #git remote set-url origin $PUSH
 fi
+
+if [[ 1 -eq $# && 'update_push_url' == $1 ]]; then
+    PATH=$(git remote -v | egrep 'push' | cut -d'@' -f2 | awk '{ print $1 }')
+#    echo $PATH
+    PUSH_URL='https://'$GIT_TOKEN'@'$PATH
+#    echo $PUSH_URL
+    /usr/bin/git remote set-url --push origin $PUSH_URL
+fi    
