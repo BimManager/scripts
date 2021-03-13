@@ -27,6 +27,8 @@
 ;; emacs -q => prevents loading the init file
 ;; default.el
 
+(setq line-number-mode 1)
+(setq column-number-mode 1)
 (menu-bar-mode -1)
 
 (set-language-environment "UTF-8")
@@ -34,6 +36,8 @@
 (setq-default indent-tabs-mode nil)
 (setq c-default-style "linux"
 	  c-basic-offset 4)
+
+(add-to-list 'auto-mode-alist '("\\.cs\\'" . c-mode))
 
 (load "~/.emacs.d/google-c-style.el")
 (add-hook 'c-mode-common-hook 'google-set-c-style)
