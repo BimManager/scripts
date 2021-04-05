@@ -44,7 +44,12 @@
 # 4. modify .zshrc
 
 # 5. set up git
-#github ssh keys
+# 5.1 Add an SSH public key
+# ls -al ~/.ssh # to view all available keys
+# ssh-keygen -t ed25519 -C "your_email@example.com"
+# eval `ssh-agent -s`
+# ssh-add ~/.ssh/id_ed25519
+# add the public key to the github account
 #~/.gitconfig [alias] st = status
 #~/.gitignore_global
 

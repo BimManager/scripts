@@ -20,6 +20,8 @@
 ;; kill-sexp
 ;; zap-to-char
 
+;; comint-clear-buffer C-c M-o (to clear the shell buffer in emacs)
+
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 
@@ -38,9 +40,15 @@
 	  c-basic-offset 4)
 
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.xaml\\'" . xml-mode))
 
 (load "~/.emacs.d/google-c-style.el")
 (add-hook 'c-mode-common-hook 'google-set-c-style)
+
+;;(add-to-list 'load-path "~/.emacs.d/")
+(load "~/.emacs.d/csharp-compilation.el")
+(load "~/.emacs.d/csharp-mode.el")
+(add-hook 'csharp-mode 'csharp-mode)
 
 (put 'erase-buffer 'disabled nil)
 (put 'downcase-region 'disabled nil)
