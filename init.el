@@ -24,6 +24,7 @@
 
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-w") 'backward-kill-word)
+(global-set-key (kbd "C-c C-k") 'kill-region)
 
 ;; emacs -u /home/anotherusr/eamcs.d/init.el
 ;; emacs -q => prevents loading the init file
@@ -42,6 +43,8 @@
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.xaml\\'" . xml-mode))
 
+;; package loading
+;;(add-to-list 'load-path "~/.emacs.d")
 (load "~/.emacs.d/google-c-style.el")
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 
@@ -50,10 +53,12 @@
 (load "~/.emacs.d/csharp-mode.el")
 (add-hook 'csharp-mode 'csharp-mode)
 
+(require 'json)
+;;(add-to-list 'load-path "~/.emacs.d/lisp")
+
 (put 'erase-buffer 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
-
 
 (auto-insert-mode t)
 (setq auto-insert-query nil)
@@ -91,7 +96,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(send-mail-function (quote smtpmail-send-it)))
+ '(package-selected-packages '(json-mode))
+ '(send-mail-function 'smtpmail-send-it))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

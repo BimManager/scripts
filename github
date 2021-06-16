@@ -87,3 +87,12 @@ if [[ 1 -eq $# && 'update_push_url' == $1 ]]; then
 #    echo $PUSH_URL
     /usr/bin/git remote set-url --push origin $PUSH_URL
 fi    
+
+if [[ $# -eq 1 && 'test' == $1 ]]; then
+    GIST_ID=$(git remote get-url origin | awk -F'[/ ]' '{print $4}')
+    PUSH_URL="git@github.com:$GIST_ID"
+    echo $PUSH_URL
+    #git remote set-url origin $PUHS_URL
+fi
+              
+    
