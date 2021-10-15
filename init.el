@@ -2,6 +2,8 @@
 ;;(setq browse-url-browser-function 'browse-url-default-browser)
 
 (setq make-backup-files nil)
+(setq-default fill-column 80)
+
 
 ;; delete-char
 ;; delete-forward-char
@@ -21,10 +23,12 @@
 ;; zap-to-char
 
 ;; comint-clear-buffer C-c M-o (to clear the shell buffer in emacs)
+;; C-q C-j to search for a newline character C-q (quoted-insert)
 
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-c C-k") 'kill-region)
+(global-set-key (kbd "M-k") 'kill-whole-line)
 
 ;; emacs -u /home/anotherusr/eamcs.d/init.el
 ;; emacs -q => prevents loading the init file
@@ -45,16 +49,16 @@
 
 ;; package loading
 ;;(add-to-list 'load-path "~/.emacs.d")
+;;(add-to-list 'load-path "~/.emacs.d/lisp")
 (load "~/.emacs.d/google-c-style.el")
 (add-hook 'c-mode-common-hook 'google-set-c-style)
-
-;;(add-to-list 'load-path "~/.emacs.d/")
 (load "~/.emacs.d/csharp-compilation.el")
 (load "~/.emacs.d/csharp-mode.el")
-(add-hook 'csharp-mode 'csharp-mode)
 
+(require 'csharp-mode)
 (require 'json)
-;;(add-to-list 'load-path "~/.emacs.d/lisp")
+(load "~/.emacs.d/powershell.el")
+(require 'powershell)
 
 (put 'erase-buffer 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -96,6 +100,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(js-indent-level 2)
  '(package-selected-packages '(json-mode))
  '(send-mail-function 'smtpmail-send-it))
 (custom-set-faces
@@ -104,3 +109,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; M-x customize
+;; M-x customize-variable
+;; js-indent-level
+
+;; Hooks
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
