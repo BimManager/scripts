@@ -1,0 +1,110 @@
+#!/bin/bash
+# github command line client
+# git@github.com:userName/repoName.git
+# git@gist.github.com:gist_id
+
+BASE_URL=https://api.github.com
+
+if [[ -z $GIT_TOKEN ]]; then
+    echo 'GIT_TOKEN is not defined.'
+    exit 1
+elif [[ -z $(which jq) ]]; then
+    echo 'jq is not installed.'
+    exit 2
+fi
+
+if [[ $# -lt 1 ]]; then
+    printf "usage: github_client repo|gist command [args]\n\
+commands:\n\
+list\n\
+create name\n\
+rename original_name new_name\n\
+delete name\n\
+clone name\n\
+update_push_url name\n"
+fi    
+
+# DEBUG
+
+if [[ $1 == 'debug' ]]; then
+    echo $#
+    echo $@
+    exit 1
+fi
+
+# REPOS
+
+if [[ $# -eq 3 && 'repo' == $1 &&  'create' == $2 ]]; then
+    curl -X POST -H "Authorization: token $GIT_TOKEN" \
+	 -d "{ \
+     \"name\": \"$3\", \
+     \"auto_init\": true, \
+     \"private\": false, \
+     \"license_template\": \"mit\" \
+     }" \
+	 $BASE_URL/user/repos
+fi
+
+if [[ $# -eq 2 && 'repo' == $1 && 'list' == $2 ]]; then
+    curl -i -H "Authorization: token $GIT_TOKEN" \
+         "$BASE_URL/user/repos?per_page=100&sort=full_name" | sed -n '/full_name/p' | cut -d: -f2
+fi
+
+if [[ $# -eq 4 && 'repo' == $1 && 'rename' == $2 ]]; then
+    curl -X PATCH -H "Authorization: token $GIT_TOKEN" \
+	 $BASE_URL/repos/bimmanager/$3 \
+	 -d "{ \"name\": \"$4\" }"
+fi
+
+if [[ 3 -eq $# && 'repo' == $1 && 'delete' == $2 ]]; then
+    curl -X DELETE -i -H "Authorization: token $GIT_TOKEN" \
+         $BASE_URL/repos/bimmanager/$3
+fi
+
+
+# GISTS
+
+if [[ $# -eq 2 && 'gist' == $1 && 'list' == $2 ]]; then
+    curl -X GET -H "Authorization: token $GIT_TOKEN" \
+         $BASE_URL/gists \
+        | jq '.[]|.["description"],.["git_pull_url"]'
+fi
+
+if [[ $# -eq 3 && 'gist' == $1 && 'clone' == $2 ]]; then
+    URL=$(curl -X GET -H "Authorization: token $GIT_TOKEN" \
+                $BASE_URL/gists \
+              | jq '.[]|.["description"],.["git_pull_url"]' | egrep -i -A1 "$3" | sed -n '2p'  | tr -d '"')
+    echo $URL
+    git clone $URL $3
+fi
+
+if [[ 4 -eq $# && 'gist' == $1 && 'create' == $2 ]]; then
+    curl -X POST -H "Authorization: token $GIT_TOKEN" \
+         $BASE_URL/gists \
+         -d "{ \"description\": \"$3\", \"public\": false, \
+         \"files\": { \"$4\": { \"content\": \"$4\" } } }"
+fi
+
+if [[ $# -eq 3 && 'gist' == $1 && 'update_push_url' == $2 ]]; then
+    ID=$(curl -X GET -H "Authorization: token $GIT_TOKEN" \
+                $BASE_URL/gists \
+             | jq '.[]|.["description"],.["id"]' | egrep -A1 "$3" | sed -n '2p'  | tr -d '"')
+    git remote set-url origin --push "git@gist.github.com:$ID.git"
+fi
+
+
+# if [[ $# -eq 2 && 'gist' == $1 && 'update_push_url' == $2 ]]; then
+#     URL=$(git remote -v | egrep 'push' | cut -d$'\t' -f2 | cut -d' ' -f1)
+#     echo $URL
+#     PUSH=${URL/g/$GIT_TOKEN@g}
+#     echo $PUSH
+#     #git remote set-url origin $PUSH
+# fi
+
+# if [[ 1 -eq $# && 'update_push_url' == $1 ]]; then
+#     PATH=$(git remote -v | egrep 'push' | cut -d'@' -f2 | awk '{ print $1 }')
+# #    echo $PATH
+#     PUSH_URL='https://'$GIT_TOKEN'@'$PATH
+# #    echo $PUSH_URL
+#     /usr/bin/git remote set-url --push origin $PUSH_URL
+# fi    
