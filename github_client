@@ -78,11 +78,11 @@ if [[ $# -eq 3 && 'gist' == $1 && 'clone' == $2 ]]; then
     git clone $URL $3
 fi
 
-if [[ 4 -eq $# && 'gist' == $1 && 'create' == $2 ]]; then
+if [[ 3 -eq $# && 'gist' == $1 && 'create' == $2 ]]; then
     curl -X POST -H "Authorization: token $GIT_TOKEN" \
          $BASE_URL/gists \
          -d "{ \"description\": \"$3\", \"public\": false, \
-         \"files\": { \"$4\": { \"content\": \"$4\" } } }"
+         \"files\": { \"dummy.txt\": { \"content\": \"data\" } } }"
 fi
 
 if [[ $# -eq 3 && 'gist' == $1 && 'update_push_url' == $2 ]]; then
