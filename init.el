@@ -1,9 +1,21 @@
+;; emacs -u /home/anotherusr/eamcs.d/init.el
+;; emacs -q => prevents loading the init file
+;; default.el
 ;; emacs browser
 ;;(setq browse-url-browser-function 'browse-url-default-browser)
 
 (setq make-backup-files nil)
 (setq-default fill-column 80)
-
+(setq-default tab-width 2)
+(setq-default indent-tabs-mode nil)
+(setq line-number-mode 1)
+(setq column-number-mode 1)
+(menu-bar-mode -1)
+(set-language-environment "UTF-8")
+(setq-default indent-tabs-mode nil)
+(setq-default js-indent-level 2)
+(setq c-default-style "linux"
+	  c-basic-offset 2)
 
 ;; delete-char
 ;; delete-forward-char
@@ -29,23 +41,17 @@
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-c C-k") 'kill-region)
 (global-set-key (kbd "M-k") 'kill-whole-line)
+(global-set-key (kbd "M-]") 'forward-sexp)
+(global-set-key (kbd "M-[") 'backward-sexp)
 
-;; emacs -u /home/anotherusr/eamcs.d/init.el
-;; emacs -q => prevents loading the init file
-;; default.el
-
-(setq line-number-mode 1)
-(setq column-number-mode 1)
-(menu-bar-mode -1)
-
-(set-language-environment "UTF-8")
-(setq-default tab-width 4)
-(setq-default indent-tabs-mode nil)
-(setq c-default-style "linux"
-	  c-basic-offset 4)
 
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.xaml\\'" . xml-mode))
+(add-to-list 'auto-mode-alist '("\\.csproj\\'" . xml-mode))
+
+(defun logi-server ()
+  (interactive)
+  (dired "/ssh:ubuntu@3.230.195.254:/"))
 
 ;; package loading
 ;;(add-to-list 'load-path "~/.emacs.d")
@@ -59,6 +65,8 @@
 (require 'json)
 (load "~/.emacs.d/powershell.el")
 (require 'powershell)
+(require 'rust-mode)
+(require 'fsharp-mode)
 
 (put 'erase-buffer 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -92,6 +100,14 @@
        "}")))
 
 
+;; Melpa
+ ;; (require 'package)
+ ;; (add-to-list 'package-archives
+ ;;              '("melpa" . "https://melpa.org/packages/") t)
+ ;; (package-initialize)
+;; (package-refresh-contents)
+
+
  ;; Gmail connection
 (setq smtpmail-smtp-server "smtp.gmail.com")
 (setq smtpmail-smtp-service 587)
@@ -101,7 +117,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(js-indent-level 2)
- '(package-selected-packages '(json-mode))
+ '(package-selected-packages '(fsharp-mode rust-mode json-mode))
  '(send-mail-function 'smtpmail-send-it))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
